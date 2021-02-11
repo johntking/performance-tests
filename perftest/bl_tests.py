@@ -15,20 +15,19 @@ def recursive_swapper(x, n = 1):
 
 
 
-def misc(N):
+def basic(N):
 
     def inner():
-
         charlist = [CHARS[i % 26] for i in range(N)]
         yield 'charlist'
         random.shuffle(charlist)
         yield 'shuffle'
         chunks = ['']
         for c in charlist:
-        	if c == 'a':
-        		chunks.append('a')
-        	else:
-        		charlist[-1] += c
+            if c == 'a':
+                chunks.append('a')
+            else:
+                charlist[-1] += c
         yield 'chunks'
         nested = {}
         for cc in chunks:
@@ -36,12 +35,14 @@ def misc(N):
         yield 'nested'
         tenseqs = [''.join(charlist[i:i+10]) for i in range(0, N - 10, 10)]
         yield 'tenseqs'
-        _ = len(set(tenseqs[::2]) & set(tenseqs[1::2])
+        _ = len(set(tenseqs[::2]) & set(tenseqs[1::2]))
         yield 'intersection'
-        _ = len(set(tenseqs[::2]) | set(tenseqs[1::2])
+        _ = len(set(tenseqs[::2]) | set(tenseqs[1::2]))
         yield 'union'
         for x in chunks:
             recursive_swapper(x, 10)
         yield 'recfunc10'
+
+    return inner
 
 
