@@ -1,27 +1,27 @@
+import os
 import numpy as np
 from multiprocessing import Pool
 
 
+def randn_mul_save_load_delete(path, n):
+    a, b = np.random.randn(2 * n).reshape(2, n)
+    np.save(path, a * b)
+    _ = np.load(path)
+    os.remove(path)
 
-def mp_np(N):
+
+PATH_HEAD = 'temp-testing'
+
+def mp_np(arr_size, max_cores, iterable_size):
 
     def inner():
-        X = np.random.randn(N**3)
-        yield 'randn'
-        X = X.reshape(N, N, N)
-        yield 'reshape'
-        m1 = X.min(axis = 2).max(axis = 1).min()
-        yield 'dim-m/m'
-        X = X / m1
-        yield 'divide'
-        X = X ** 3
-        yield 'power'
-        X = X[X > 1]
-        yield 'boolmask'
-        X = np.sort(X, axis = 0)
-        yield 'sort'
-        m2 = X[int(len(X) / 2)]
-        yield 'select'
+        os.makedirs(PATH_HEAD, exists_ok = True)
+        iterable = [(f'PATH_HEAD/{i}.npy', arr_size) for i in range(iterable_size)]
+        for n in range(1 + max_cores):
+            if n == 0:
+                _ = [randn_mul_save_load_delete(*args) for args in iterable]
+            else:
+                _ = Pool.starmap(randn_mul_save_load_delete, iterable)
 
     return inner
 
