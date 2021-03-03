@@ -1,0 +1,43 @@
+$ python3 -m perftest bl basic 1000000 --trials 5
+        flag        (0)        (2)        (4)
+    charlist  0.085369s  0.086732s  0.088589s
+     shuffle   0.42823s   0.43016s   0.43699s
+      chunks    35.894s    35.997s    46.699s
+      nested  0.014184s  0.014205s    0.0144s
+     tenseqs  0.036059s  0.036855s  0.037865s
+intersection  0.013645s  0.013812s  0.013968s
+       union  0.014324s  0.014409s   0.01652s
+   recfunc10   0.22687s   0.22694s   0.22736s
+$ python3 -m perftest numpy basic3d 1000 --trials 5
+    flag         (0)         (2)         (4)
+   randn  38.260735s  38.264795s   39.33561s
+ reshape    2.9e-05s    3.1e-05s   0.000137s
+ dim-m/m   0.816591s   0.819415s   0.847161s
+  divide   5.802585s   5.803982s   8.087751s
+   power  45.845406s  45.851253s  46.285948s
+boolmask   1.787739s   1.811659s   1.823409s
+    sort   0.473502s    0.51144s   0.526429s
+  select    2.8e-05s    3.4e-05s    4.2e-05s
+$ python3 -m perftest mp mp_np 30000 20 2000 --trials 5
+    flag      (0)      (2)      (4)
+   no-mp   6.171s   6.174s   6.239s
+ cores=1   6.336s   6.347s   6.358s
+ cores=2   3.195s   3.214s   3.293s
+ cores=3   2.128s   2.132s   2.173s
+ cores=4   1.602s   1.607s   1.673s
+ cores=5   1.292s   1.296s   1.308s
+ cores=6   1.085s   1.095s   1.162s
+ cores=7  0.9351s   0.938s   1.002s
+ cores=8  0.8809s  0.8985s  0.9597s
+ cores=9  0.8605s  0.8917s  0.9115s
+cores=10  0.8152s  0.8191s  0.8316s
+cores=11   0.758s  0.8012s  0.8222s
+cores=12  0.7325s  0.7461s  0.7796s
+cores=13  0.7067s   0.736s  0.7649s
+cores=14  0.6783s  0.6961s  0.7139s
+cores=15  0.5718s  0.6386s  0.6626s
+cores=16  0.5981s  0.6241s  0.6296s
+cores=17  0.5635s  0.5866s  0.5901s
+cores=18  0.5256s  0.5344s  0.5569s
+cores=19  0.5138s  0.5383s  0.5625s
+cores=20  0.5108s  0.5155s  0.5278s
